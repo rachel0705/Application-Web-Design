@@ -34,9 +34,6 @@ It allows you to add:
 | Italic          | `*italic*`                          | *italic*            |
 | Link            | `[GitHub](https://github.com)`      | [GitHub](https://github.com) |
 | Inline code     | `` `code` ``                        | `code`              |
-| Code block      | <pre>```bash  
-git init  
-```</pre> | Code block |
 | Unordered list  | `- Item`                            | - Item              |
 | Ordered list    | `1. Item`                           | 1. Item             |
 
@@ -47,3 +44,24 @@ git init
 ### 🔍 Check repository status
 ```bash
 git status
+
+### ➕ Add files
+git add README.md
+git add .
+
+### 💬 Make a commit
+git commit -m "Descriptive message"
+
+### 🚀 Push changes to GitHub
+git push origin main
+
+### 🌿 Branch management
+git branch new-feature
+git checkout new-feature
+git branch
+git branch -d new-feature
+
+### ⏪ Roll back to a specific commit
+git log
+git checkout <commit-hash>
+git reset --hard <commit-hash>
