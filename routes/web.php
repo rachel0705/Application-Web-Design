@@ -6,8 +6,8 @@ use App\Http\Controllers\ProductController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/app', function () {
-    return view('app');
+Route::get('/todos', function () {
+    return view('todos.index');
 });
 
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
