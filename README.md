@@ -45,23 +45,23 @@ It allows you to add:
 ```bash
 git status
 
-➕ Add files
+### ➕ Add files
 git add README.md
 git add .
 
-💬 Make a commit
+### 💬 Make a commit
 git commit -m "Descriptive message"
 
-🚀 Push changes to GitHub
+### 🚀 Push changes to GitHub
 git push origin main
 
-🌿 Branch management
+### 🌿 Branch management
 git branch new-feature
 git checkout new-feature
 git branch
 git branch -d new-feature
 
-⏪ Roll back to a specific commit
+### ⏪ Roll back to a specific commit
 git log
 git checkout <commit-hash>
 git reset --hard <commit-hash>
