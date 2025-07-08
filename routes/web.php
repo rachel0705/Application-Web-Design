@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TodosController;
-use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,7 +30,7 @@ Route::get('/todos/{id}', [TodosController::class , 'show'])->name('todos-edit')
 Route::patch('/todos/{id}', [TodosController::class , 'update'])->name('todos-update');
 
 // Categories
-Route::resource('categories', CategoriesController::class);
+Route::resource('categories', CategoryController::class);
 
 
 // Products
