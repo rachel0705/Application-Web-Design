@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Todo extends Model
 {
     use HasFactory;
+
+    public function category()
+    { return $this->belongsTo(Category::class);
+    }
+    protected $casts = [
+    'completed' => 'boolean',
+    ];
+
 }

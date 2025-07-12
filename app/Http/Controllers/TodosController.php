@@ -10,9 +10,10 @@ class TodosController extends Controller
 {
     public function index()
     {
-        $todos = Todo::all();
-        $categories = Category::all();
-        return view('todos.index', ['todos' => $todos, 'categories' => $categories]);
+        $todos = Todo::with('category')->get();
+        // Fetch all categories to display in the view
+        $categories = Category::with('todos')->get(); // cada categoría con sus tareas
+        return view('todos.index', ['categories' => $categories]);
     }
 
     public function store(Request $request){
@@ -49,4 +50,14 @@ class TodosController extends Controller
 
         return redirect()->route('todos')->with('success', 'Todo updated successfully');
     }
+    
+    public function complete($id)
+    {
+    $todo = Todo::findOrFail($id);
+    $todo->completed = true;
+    $todo->save();
+
+    return redirect()->route('todos')->with('completed', '¡Tarea completada! 🎉');
+    }
+
 }

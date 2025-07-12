@@ -28,6 +28,7 @@ Route::delete('/todos/{id}', [TodosController::class , 'destroy'])->name('todos-
 Route::get('/todos/{id}', [TodosController::class , 'show'])->name('todos-edit');
 
 Route::patch('/todos/{id}', [TodosController::class , 'update'])->name('todos-update');
+Route::patch('/todos/{id}/complete', [TodosController::class, 'complete'])->name('todos.complete');
 
 // Categories
 Route::resource('categories', CategoryController::class);

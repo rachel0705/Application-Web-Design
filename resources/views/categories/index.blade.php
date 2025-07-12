@@ -2,47 +2,64 @@
 
 @section('content')
 
-<div class="container w-25 border p-4">
-    <div class="row mx-auto">
-    <form  method="POST" action="{{route('categories.store')}}">
+<style>
+    body {
+        background-color:rgb(170, 207, 255);
+    }
+</style>
+
+<div class="container w-50 bg-white p-4 rounded shadow">
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary">🎨 Categorías</h2>
+        <p class="text-muted">Crea y organiza tus tareas por color y nombre</p>
+    </div>
+
+    <form method="POST" action="{{ route('categories.store') }}" class="mb-4">
         @csrf
 
-        <div class="mb-3 col">
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
 
         @error('name')
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
 
-         @error('color')
+        @error('color')
             <div class="alert alert-danger">{{ $message }}</div>
         @enderror
 
-        @if (session('success'))
-                <h6 class="alert alert-success">{{ session('success') }}</h6>
-        @endif
-
-            <label for="exampleFormControlInput1" class="form-label">Nombre de la categoría</label>
-            <input type="text" class="form-control mb-2" name="name" id="exampleFormControlInput1" placeholder="Hogar">
-            
-            <label for="exampleColorInput" class="form-label">Escoge un color para la categoría</label>
-            <input type="color" class="form-control form-control-color" name="color" id="exampleColorInput" value="#563d7c" title="Choose your color">
-
-            <input type="submit" value="Crear tarea" class="btn btn-primary my-2" />
+        <div class="mb-3">
+            <label for="name" class="form-label">Nombre de la categoría</label>
+            <input type="text" class="form-control" name="name" placeholder="Hogar">
         </div>
+
+        <div class="mb-3">
+            <label for="color" class="form-label">Escoge un color para la categoría</label>
+            <input type="color" class="form-control form-control-color" name="color" value="#563d7c" title="Choose your color">
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100">
+            ➕ Crear categoría
+        </button>
     </form>
 
-    <div >
+    <div class="row">
         @foreach ($categories as $category)
-            <div class="row py-1">
-                <div class="col-md-9 d-flex align-items-center">
-                    <a class="d-flex align-items-center gap-2" href="{{ route('categories.show', ['category' => $category->id]) }}">
-                        <span class="color-container" style="background-color: {{ $category->color }}"></span> {{ $category->name }}
-                    </a>
-                </div>
+            <div class="col-12 mb-3">
+                <div class="card shadow-sm border-start border-5" style="border-color: {{ $category->color }}">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="rounded-circle" style="background-color: {{ $category->color }}; width: 20px; height: 20px;"></span>
+                            <a class="text-decoration-none text-dark fw-semibold" href="{{ route('categories.show', $category->id) }}">
+                                {{ $category->name }}
+                            </a>
+                        </div>
 
-                <div class="col-md-3 d-flex justify-content-end">
-                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modal{{$category->id}}">Eliminar</button>
-                    
+                        <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal" data-bs-target="#modal{{$category->id}}">
+                            🗑️
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -51,28 +68,26 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Eliminar categoría</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <h5 class="modal-title">Eliminar categoría</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
-                        Al eliminar la categoría <strong>{{ $category->name }}</strong> se eliminan todas las tareas asignadas a la misma. 
-                        ¿Está seguro que desea eliminar la categoría <strong>{{ $category->name }}</strong>?
+                        Al eliminar la categoría <strong>{{ $category->name }}</strong> se eliminarán todas las tareas asignadas.
+                        <br>¿Estás segura de eliminarla?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, cancelar</button>
-                        <form action="{{ route('categories.destroy', ['category' => $category->id]) }}" method="POST">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
                             @method('DELETE')
                             @csrf
-                            <button type="submit" class="btn btn-primary">Sí, eliminar categoía</button>
+                            <button type="submit" class="btn btn-danger">Sí, eliminar</button>
                         </form>
-                        
                     </div>
                     </div>
                 </div>
             </div>
-            
         @endforeach
     </div>
-    </div>
 </div>
+
 @endsection
