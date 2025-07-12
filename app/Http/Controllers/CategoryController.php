@@ -108,4 +108,12 @@ class CategoryController extends Controller
         $category->delete();
         return redirect()->route('categories.index')->with('success', 'Category deleted successfully');
     }
+
+    public function __construct()
+    {
+        // Apply the auth middleware to all methods in this controller
+        // This ensures that only authenticated users can access the category routes    
+    $this->middleware('auth');
+    }
+
 }

@@ -31,7 +31,8 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <body>
-  <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+@auth
+<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Pendientes</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,10 +46,20 @@
         <li class="nav-item">
           <a href="{{ route('categories.index') }}">Categorías</a>
         </li>
+        <li class="nav-item">
+          <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="btn btn-outline-danger btn-sm ms-3">
+              🔒 Cerrar sesión
+            </button>
+          </form>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
+@endauth
+
 
 <div class="container mt-4">
     @yield('content')

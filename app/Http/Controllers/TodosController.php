@@ -60,4 +60,10 @@ class TodosController extends Controller
     return redirect()->route('todos')->with('completed', '¡Tarea completada! 🎉');
     }
 
+    public function __construct()
+    {
+    $this->middleware('auth');
+    }
+
+
 }
